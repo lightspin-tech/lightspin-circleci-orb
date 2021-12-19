@@ -32,9 +32,9 @@ workflows:
     jobs:
       - orb-tools/lint # Lint Yaml files
       - orb-tools/pack # Pack orb source
-      - shellcheck/check:
-          dir: ./src/scripts
-          exclude: SC2148
+   #   - shellcheck/check:
+    #      dir: ./src/scripts
+     #     exclude: SC2148
       # Publish development version(s) of the orb.
       - orb-tools/publish-dev:
           orb-name: lightspin-tech/lightspin
@@ -42,7 +42,7 @@ workflows:
           requires:
             - orb-tools/lint
             - orb-tools/pack
-            - shellcheck/check
+   #         - shellcheck/check
       # Trigger an integration workflow to test the
       # dev:${CIRCLE_SHA1:0:7} version of your orb
       - orb-tools/trigger-integration-tests-workflow:
