@@ -1,0 +1,30 @@
+description: >
+  Run the LightSpin IaC scan
+
+executor: default
+
+parameters:
+      path-to-scan:
+        description: 'The path to IaC files in this repository'
+        type: string
+        default: '.'
+      token:
+        description: 'Environment Variable ID that holds the LightSpin API Token'
+        type: env_var_name
+        default: LIGHTSPIN_API_TOKEN
+      tenant-id:
+        description: 'Environment Variable ID that holds the LightSpin tenant ID'
+        type: env_var_name
+        default: LIGHTSPIN_TENANT_ID
+      friendly-name:
+        description: 'A name for the scan to be performed'
+        type: string
+        default: 'LightSpin-IaC-scan'
+
+steps:
+  - scan:
+      path-to-scan: << parameters.path-to-scan >>
+      token: << parameters.token >>
+      tenant-id: << parameters.tenant-id >>
+      friendly-name: << parameters.friendly-name >>
+
