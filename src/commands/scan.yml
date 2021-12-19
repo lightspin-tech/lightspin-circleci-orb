@@ -1,0 +1,24 @@
+description: >
+  Run LightSpin IaC scan
+parameters:
+      path-to-scan:
+        description: 'The path to IaC files in this repository'
+        type: string
+        default: '.'
+      token:
+        description: 'Environment Variable ID that holds the LightSpin API Token'
+        type: env_var_name
+        default: LIGHTSPIN_API_TOKEN
+      tenant-id:
+        description: 'Environment Variable ID that holds the LightSpin tenant ID'
+        type: env_var_name
+        default: LIGHTSPIN_TENANT_ID
+      friendly-name:
+        description: 'A name for the scan to be performed'
+        type: string
+        default: 'LightSpin-IaC-scan'
+steps:
+  - checkout
+  - run: wget -q https://lightspin-public.s3.us-east-2.amazonaws.com/light-iac/light-iac-linux-amd64 -O ./light-iac
+  - run: chmod +x ./light-iac
+  - run: ./light-iac scan -p <<parameters.path-to-scan>> --token ${<<parameters.token>>} --tenant-id ${<<parameters.tenant-id>>} --scan-name <<parameters.friendly-name>>
