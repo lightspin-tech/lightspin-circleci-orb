@@ -4,7 +4,6 @@ orbs:
   # Replace this with your own!
   lightspin: lightspin-tech/lightspin@<<pipeline.parameters.dev-orb-version>>
   orb-tools: circleci/orb-tools@10.0
-  bats: circleci/bats@1.0
   shellcheck: circleci/shellcheck@2.0
 
 # Pipeline Parameters
@@ -16,9 +15,6 @@ parameters:
     default: false
   dev-orb-version:
     description: >
-      The development version of the orb to test.
-      This value is automatically adjusted by the "trigger-integration-tests-workflow" job to correspond with the specific version created by the commit and should not be edited.
-      A "dev:alpha" version must exist for the initial pipeline run.
     type: string
     default: "dev:alpha"
 
@@ -29,14 +25,8 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-      # "greet" is a sample command packaged with this orb config.
-      # This sample integration test will run as long as the greet command exists. Once you remove the greet command you should remove this line.
-      # Push new changes first, before adding new tests to your config.
-      - lightspin/greet
 
 workflows:
-  # Prior to producing a development orb (which requires credentials) basic validation, linting, and even unit testing can be performed.
-  # This workflow will run on every commit
   test-pack:
     unless: << pipeline.parameters.run-integration-tests >>
     jobs:
@@ -45,9 +35,6 @@ workflows:
       - shellcheck/check:
           dir: ./src/scripts
           exclude: SC2148
-      # optional: Run BATS tests against your scripts
-      - bats/run:
-          path: ./src/tests
       # Publish development version(s) of the orb.
       - orb-tools/publish-dev:
           orb-name: lightspin-tech/lightspin
@@ -55,7 +42,6 @@ workflows:
           requires:
             - orb-tools/lint
             - orb-tools/pack
-            - bats/run
             - shellcheck/check
       # Trigger an integration workflow to test the
       # dev:${CIRCLE_SHA1:0:7} version of your orb
@@ -65,10 +51,6 @@ workflows:
           requires:
             - orb-tools/publish-dev
 
-  # This `integration-test_deploy` workflow will only run
-  # when the run-integration-tests pipeline parameter is set to true.
-  # It is meant to be triggered by the "trigger-integration-tests-workflow"
-  # job, and run tests on <your orb>@dev:${CIRCLE_SHA1:0:7}.
   integration-test_deploy:
     when: << pipeline.parameters.run-integration-tests >>
     jobs:
