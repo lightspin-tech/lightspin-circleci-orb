@@ -1,26 +1,26 @@
-# Orb Source
+# LightSpin IaC CircleCI Orb
 
-Orbs are shipped as individual `orb.yml` files, however, to make development easier, it is possible to author an orb in _unpacked_ form, which can be _packed_ with the CircleCI CLI and published.
+## Description
+The LightSpin Orb enables you to call a LightSpin IaC scan on IaC files that exists on your repository.
+The scan results are displayed in the LightSpin platform.
 
-The default `.circleci/config.yml` file contains the configuration code needed to automatically pack, test, and deploy and changes made to the contents of the orb source in this directory.
+## Usage
+```yaml
+version: 2.1
+orbs:
+  lightspin-orb: lightspin-tech/lightspin@0.1.0
+workflows:
+  invoke-iac:
+    jobs:
+      - lightspin-orb/lightspin_scan:
+            path-to-scan: "terraform"
+            friendly-name: $CIRCLE_BUILD_NUM'_circle_CI'
+            token: "LS_TOKEN"
+            tenant-id: "LS_TENANT"          
+```
+- "path-to-scan" is the path to the IaC files to be scaned in your repostory.
+- "friendly-name" will be the name displayed in the LightSpin IaC platform for your new scan.
+- "token" is the environment variable name that holds the LightSpin platform token
+- "tenant-id" is the environment variable name that holds the LightSpin tenant ID
 
-## @orb.yml
-
-This is the entry point for our orb "tree", which becomes our `orb.yml` file later.
-
-Within the `@orb.yml` we generally specify 4 configuration keys
-
-**Keys**
-
-1. **version**
-    Specify version 2.1 for orb-compatible configuration `version: 2.1`
-2. **description**
-    Give your orb a description. Shown within the CLI and orb registry
-3. **display**
-    Specify the `home_url` referencing documentation or product URL, and `source_url` linking to the orb's source repository.
-4. **orbs**
-    (optional) Some orbs may depend on other orbs. Import them here.
-
-## See:
- - [Orb Author Intro](https://circleci.com/docs/2.0/orb-author-intro/#section=configuration)
- - [Reusable Configuration](https://circleci.com/docs/2.0/reusing-config)
+Make sure to initialize the mentioned environemnt variables with the required value before running the orb in a pipeline.
