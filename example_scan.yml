@@ -1,0 +1,14 @@
+description: >
+  Run LightSpin IaC scan on your IaC files
+usage:
+  version: 2.1
+  orbs:
+    lightspin-orb: lightspin-tech/lightspin@0.1.0
+  workflows:
+    invoke-iac:
+      jobs:
+        - lightspin-orb/lightspin_scan:
+            path-to-scan: "terraform"
+            friendly-name: $CIRCLE_BUILD_NUM'_circle_CI'
+            token: "LS_TOKEN"
+            tenant-id: "LS_TENANT"
