@@ -1,41 +1,26 @@
-# Orb Project Template
+# LightSpin IaC CircleCI Orb
 
-[![CircleCI Build Status](https://circleci.com/gh/lightspin-tech/lightspin-circleci-orb.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/lightspin-tech/lightspin-circleci-orb) [![CircleCI Orb Version](https://badges.circleci.com/orbs/lightspin-tech/lightspin.svg)](https://circleci.com/orbs/registry/orb/lightspin-tech/lightspin) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/lightspin-tech/lightspin-circleci-orb/master/LICENSE) [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
+## Description
+The LightSpin Orb enables you to call a LightSpin IaC scan on IaC files that exists on your repository.
+The scan results are displayed in the LightSpin platform.
 
+## Usage
+```yaml
+version: 2.1
+orbs:
+  lightspin-orb: lightspin-tech/lightspin@0.1.0
+workflows:
+  invoke-iac:
+    jobs:
+      - lightspin-orb/lightspin_scan:
+            path-to-scan: "terraform"
+            friendly-name: $CIRCLE_BUILD_NUM'_circle_CI'
+            token: "LS_TOKEN"
+            tenant-id: "LS_TENANT"          
+```
+- "path-to-scan" is the path to the IaC files to be scaned in your repostory.
+- "friendly-name" will be the name displayed in the LightSpin IaC platform for your new scan.
+- "token" is the environment variable name that holds the LightSpin platform token
+- "tenant-id" is the environment variable name that holds the LightSpin tenant ID
 
-
-A starter template for orb projects. Build, test, and publish orbs automatically on CircleCI with [Orb-Tools](https://circleci.com/orbs/registry/orb/circleci/orb-tools).
-
-Additional READMEs are available in each directory.
-
-
-
-## Resources
-
-[CircleCI Orb Registry Page](https://circleci.com/orbs/registry/orb/lightspin-tech/lightspin-circleci-orb) - The official registry page of this orb for all versions, executors, commands, and jobs described.
-[CircleCI Orb Docs](https://circleci.com/docs/2.0/orb-intro/#section=configuration) - Docs for using and creating CircleCI Orbs.
-
-### How to Contribute
-
-We welcome [issues](https://github.com/lightspin-tech/lightspin-circleci-orb/issues) to and [pull requests](https://github.com/lightspin-tech/lightspin-circleci-orb/pulls) against this repository!
-
-### How to Publish
-* Create and push a branch with your new features.
-* When ready to publish a new production version, create a Pull Request from _feature branch_ to `master`.
-* The title of the pull request must contain a special semver tag: `[semver:<segment>]` where `<segment>` is replaced by one of the following values.
-
-| Increment | Description|
-| ----------| -----------|
-| major     | Issue a 1.0.0 incremented release|
-| minor     | Issue a x.1.0 incremented release|
-| patch     | Issue a x.x.1 incremented release|
-| skip      | Do not issue a release|
-
-Example: `[semver:major]`
-
-* Squash and merge. Ensure the semver tag is preserved and entered as a part of the commit message.
-* On merge, after manual approval, the orb will automatically be published to the Orb Registry.
-
-
-For further questions/comments about this or other orbs, visit the Orb Category of [CircleCI Discuss](https://discuss.circleci.com/c/orbs).
-
+Make sure to initialize the mentioned environemnt variables with the required value before running the orb in a pipeline.
