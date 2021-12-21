@@ -1,7 +1,7 @@
 version: 2.1
 
 description: >
-  Scan your common infastrcute templates with the LightSpin IaC platform.
+  Scan your IaC templates with the LightSpin IaC platform.
 
 display:
   home_url: "https://github.com/lightspin-tech/lightspin-circleci-orb"
