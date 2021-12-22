@@ -21,4 +21,4 @@ steps:
   - checkout
   - run: wget -q https://lightspin-public.s3.us-east-2.amazonaws.com/light-iac/light-iac-linux-amd64 -O ./light-iac
   - run: chmod +x ./light-iac
-  - run: ./light-iac scan -p <<parameters.path-to-scan>> --token ${<<parameters.token>>} --tenant-id ${<<parameters.tenant-id>>} --scan-name <<parameters.friendly-name>>
+  - run: ./light-iac scan -p <<parameters.path-to-scan>> --token ${<<parameters.token>>} --tenant-id ${<<parameters.tenant-id>>} --scan-name <<parameters.friendly-name>> --override-exit
