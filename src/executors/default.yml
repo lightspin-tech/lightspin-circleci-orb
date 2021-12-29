@@ -1,4 +1,0 @@
-description: >
-  The default executor.
-docker:
-      - image: cimg/base:stable
