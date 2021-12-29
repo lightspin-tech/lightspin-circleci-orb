@@ -1,7 +1,8 @@
 description: >
   Run the LightSpin IaC scan
 
-executor: default
+docker:
+  - image: cimg/base:stable
 
 parameters:
       path-to-scan:
