@@ -4,5 +4,5 @@ description: >
   Scan your IaC templates with the LightSpin IaC platform.
 
 display:
-  home_url: "https://github.com/lightspin-tech/lightspin-circleci-orb"
-  source_url: "https://www.lightspin.io/"
+  home_url: "https://www.lightspin.io/"
+  source_url: "https://github.com/lightspin-tech/lightspin-circleci-orb"
