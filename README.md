@@ -8,7 +8,7 @@ The scan results are displayed in the LightSpin platform.
 ```yaml
 version: 2.1
 orbs:
-  lightspin-orb: lightspin-tech/lightspin@0.1.0
+  lightspin-orb: lightspin-tech/lightspin@1.0.0
 workflows:
   invoke-iac:
     jobs:
